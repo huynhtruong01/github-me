@@ -1,0 +1,6 @@
+export * from '@/pages/Home/components/HomeHeader'
+export * from '@/pages/Home/components/HomeGuide'
+export * from '@/pages/Home/components/HomeStatistics'
+export * from '@/pages/Home/components/HomeSocialIcon'
+export * from '@/pages/Home/components/HomeBages'
+export * from '@/pages/Home/components/HomeResource'
