@@ -1,7 +1,8 @@
 import { navLinks } from '@/data'
 import { theme } from '@/utils'
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Container, Typography, Button } from '@mui/material'
 import { Link } from 'react-router-dom'
+import AddIcon from '@mui/icons-material/Add'
 
 export interface IHeaderProps {}
 
@@ -73,6 +74,17 @@ export function Header() {
                                 )
                             })}
                         </Box>
+                    </Box>
+                    <Box>
+                        <Button
+                            startIcon={<AddIcon />}
+                            variant="contained"
+                            sx={{
+                                padding: theme.spacing(1.5, 3),
+                            }}
+                        >
+                            Tạo Readme File
+                        </Button>
                     </Box>
                 </Box>
             </Container>

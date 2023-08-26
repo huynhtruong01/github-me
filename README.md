@@ -18,4 +18,5 @@
   - Add profile view count
   - Display supporters
 
-> References: [https://gitmee.netlify.app/](https://gitmee.netlify.app/)
+> Source: [https://gitmee.netlify.app/](https://gitmee.netlify.app/)
+> Idea from [Daniel Truong](https://www.danieltruongg.com/)

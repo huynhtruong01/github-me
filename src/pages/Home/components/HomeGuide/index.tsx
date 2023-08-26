@@ -41,8 +41,8 @@ export function HomeGuide() {
             </Box>
             <Grid container spacing={2}>
                 {stepGuideList.map((step) => (
-                    <Grid item xs={12} md={6}>
-                        <HomeGuideStep key={step.id} step={step} />
+                    <Grid item xs={12} md={6} key={step.id}>
+                        <HomeGuideStep step={step} />
                     </Grid>
                 ))}
             </Grid>

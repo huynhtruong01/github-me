@@ -1,8 +1,8 @@
-import { Route, Routes } from 'react-router-dom'
 import '@/App.css'
-import { Badge, HomePage, Socials, Statistics } from '@/pages'
 import { Footer, Header } from '@/components'
-import { Box, Container } from '@mui/material'
+import { Badge, HomePage, Statistics } from '@/pages'
+import { Box } from '@mui/material'
+import { Route, Routes } from 'react-router-dom'
 import { HEIGHT_HEADER } from './consts'
 
 function App() {
@@ -19,7 +19,6 @@ function App() {
                 <Routes>
                     <Route path="" element={<HomePage />} />
                     <Route path="statistics" element={<Statistics />} />
-                    <Route path="socials" element={<Socials />} />
                     <Route path="badges" element={<Badge />} />
                 </Routes>
             </Box>

@@ -4,15 +4,20 @@ import {
     Input,
     InputAdornment,
     FormControlProps,
+    SvgIconTypeMap,
 } from '@mui/material'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import { Dispatch, SetStateAction } from 'react'
 import { theme } from '@/utils'
+import { OverridableComponent } from '@mui/material/OverridableComponent'
 
 export interface IInputFieldProps extends FormControlProps {
     label: string
     value: string
     setValue: Dispatch<SetStateAction<string>>
+    icon?: OverridableComponent<SvgIconTypeMap<object, 'svg'>> & {
+        muiName: string
+    }
     placeholder?: string
 }
 
@@ -20,9 +25,12 @@ export function InputField({
     label,
     value,
     setValue,
+    icon = AccountCircle,
     placeholder,
     ...props
 }: IInputFieldProps) {
+    const Icon = icon
+
     return (
         <FormControl
             variant="standard"
@@ -35,9 +43,7 @@ export function InputField({
             <InputLabel>{label}</InputLabel>
             <Input
                 startAdornment={
-                    <InputAdornment position="start">
-                        <AccountCircle />
-                    </InputAdornment>
+                    <InputAdornment position="start">{<Icon />}</InputAdornment>
                 }
                 value={value}
                 fullWidth

@@ -1,47 +1,47 @@
-import { themeData } from '@/data'
-import { theme } from '@/utils'
-import AccountCircle from '@mui/icons-material/AccountCircle'
+import { AccordingCopyCode } from '@/components'
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Box,
-    Button,
-    FormControl,
-    Input,
-    InputAdornment,
-    InputLabel,
-    MenuItem,
-    Select,
-    Typography,
-    Grid,
-} from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { useState, useEffect } from 'react'
+    AutocompleteField,
+    CheckBoxField,
+    InputField,
+    SelectField,
+} from '@/components/Fields'
+import { githubMoreKeys, themeData } from '@/data'
+import { NumberFormat, RankIcon } from '@/enums'
+import { theme } from '@/utils'
+import { Box, Grid, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
+import TitleIcon from '@mui/icons-material/Title'
 
 export interface IGithubStatsProps {}
 
 export function GithubStats() {
     const [username, setUsername] = useState<string>('')
-    const [copied, setCopied] = useState<boolean>(false)
+    const [title, setTitle] = useState<string>('')
     const [themeDt, setThemeDt] = useState<string>(themeData[0])
-    const [imgElement, setImgElement] = useState<string>(
-        `<img src="https://github-readme-stats.vercel.app/api?username=huynhtruong01&theme=${themeData[0]}&show_icons=true&count_private=true"></img>`
+    const [rankIcon, setRankIcon] = useState<string>(RankIcon.DEFAULT)
+    const [numFormat, setNumFormat] = useState<string>(NumberFormat.SHORT)
+    const [showIcon, setShowIcon] = useState<boolean>(true)
+    const [keyMore, setKeyMore] = useState<string[]>([])
+    const [url, setUrl] = useState<string>(
+        `https://github-readme-stats.vercel.app/api?username=${
+            username || 'huynhtruong01'
+        }&theme=${themeData[0]}&show_icons=true&count_private=true&custom_title=${
+            title || `Github Stats của ${username || 'huynhtruong01'}`
+        }${keyMore.length > 0 ? `&show=${keyMore.join(',')}` : ''}`
     )
 
     useEffect(() => {
-        const imgElement = `<img src="https://github-readme-stats.vercel.app/api?username=${username}&theme=${themeDt}&show_icons=true&count_private=true"></img>`
-        setImgElement(imgElement)
-    }, [username, themeDt])
-
-    const copyCode = async () => {
-        try {
-            await navigator.clipboard.writeText(imgElement)
-            setCopied(true)
-        } catch (error) {
-            throw new Error(error as string)
-        }
-    }
+        const newUrl = `https://github-readme-stats.vercel.app/api?username=${
+            username || 'huynhtruong01'
+        }&theme=${themeDt}&show_icons=${showIcon}&count_private=true${
+            rankIcon === RankIcon.DEFAULT ? '' : `&rank_icon=${rankIcon}`
+        }&custom_title=${
+            title || `Github Stats của ${username || 'huynhtruong01'}`
+        }&number_format=${numFormat}${
+            keyMore.length > 0 ? `&show=${keyMore.join(',')}` : ''
+        }`
+        setUrl(newUrl)
+    }, [username, themeDt, showIcon, rankIcon, title, numFormat, keyMore])
 
     return (
         <Box
@@ -68,114 +68,54 @@ export function GithubStats() {
                 <Typography component="span">(Github Stats)</Typography>
             </Typography>
             <Grid container spacing={4} alignItems={'center'}>
-                <Grid item md={6}>
-                    <FormControl variant="standard" fullWidth margin="normal">
-                        <InputLabel htmlFor="github-stats">Tên Github của bạn</InputLabel>
-                        <Input
-                            id="github-stats"
-                            startAdornment={
-                                <InputAdornment position="start">
-                                    <AccountCircle />
-                                </InputAdornment>
-                            }
-                            fullWidth
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl
-                        fullWidth
-                        margin="normal"
-                        sx={{
-                            marginBottom: 4,
-                        }}
-                    >
-                        <InputLabel variant="standard" htmlFor="select-github-stats">
-                            Theme
-                        </InputLabel>
-                        <Select
-                            variant="standard"
-                            defaultValue={themeData[0]}
-                            sx={{
-                                textTransform: 'capitalize',
-                            }}
-                            onChange={(e) => setThemeDt(e.target.value)}
-                        >
-                            {themeData.map((theme) => (
-                                <MenuItem
-                                    value={theme}
-                                    sx={{
-                                        textTransform: 'capitalize',
-                                    }}
-                                >
-                                    {theme}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <Accordion
-                        sx={{
-                            backgroundColor: theme.palette.primary.light,
-                            color: '#ffffff',
-                        }}
-                    >
-                        <AccordionSummary
-                            expandIcon={
-                                <ExpandMoreIcon
-                                    sx={{
-                                        color: '#ffffff',
-                                    }}
-                                />
-                            }
-                        >
-                            <Typography
-                                sx={{
-                                    fontWeight: 700,
-                                }}
-                            >
-                                Xem code
-                            </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography
-                                sx={{
-                                    display: 'inline-block',
-                                    color: '#ffffff',
-                                    fontWeight: 700,
-                                    marginBottom: 2,
-                                    whiteSpace: 'normal',
-                                    overflow: 'hidden',
-                                    maxWidth: '100%',
-                                }}
-                            >
-                                {imgElement}
-                            </Typography>
-                            <Button
-                                variant="outlined"
-                                sx={{
-                                    borderColor: '#ffffff',
-                                    color: '#ffffff',
-                                    fontSize: theme.typography.body2,
-                                    padding: theme.spacing(1, 2),
-                                    fontWeight: 700,
-                                    '&:hover': {
-                                        borderColor: '#ffffff',
-                                    },
-                                }}
-                                onClick={copyCode}
-                            >
-                                {copied ? 'Đã copy' : 'Copy code'}
-                            </Button>
-                        </AccordionDetails>
-                    </Accordion>
+                <Grid item xs={12} md={6}>
+                    <InputField
+                        value={username}
+                        setValue={setUsername}
+                        label={'Tên Repo Github của bạn'}
+                        placeholder={'huynhtruong01'}
+                    />
+                    <InputField
+                        value={title}
+                        setValue={setTitle}
+                        label={'Tạo tiêu đề cho github stats của bạn'}
+                        icon={TitleIcon}
+                        placeholder={'Github Stats của huynhtruong01'}
+                    />
+                    <SelectField<string>
+                        label={'Chủ đề'}
+                        options={themeData}
+                        value={themeDt}
+                        setValue={setThemeDt}
+                    />
+                    <SelectField<string>
+                        label={'Icon xếp hạng'}
+                        options={Object.values(RankIcon)}
+                        value={rankIcon}
+                        setValue={setRankIcon}
+                    />
+                    <SelectField<string>
+                        label={'Format số view'}
+                        options={Object.values(NumberFormat)}
+                        value={numFormat}
+                        setValue={setNumFormat}
+                    />
+                    <AutocompleteField<string>
+                        label="Hiển thị thêm"
+                        options={githubMoreKeys}
+                        value={keyMore}
+                        setValue={setKeyMore}
+                    />
+                    <CheckBoxField
+                        label={'Hiển thị icon'}
+                        checked={showIcon}
+                        setChecked={setShowIcon}
+                    />
+                    <AccordingCopyCode url={url} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                     <Box>
-                        <Box
-                            component="img"
-                            src={`https://github-readme-stats.vercel.app/api?username=${
-                                username || 'huynhtruong01'
-                            }&theme=${themeDt}&show_icons=true&count_private=true`}
-                        />
+                        <Box component="img" src={url} />
                     </Box>
                 </Grid>
             </Grid>

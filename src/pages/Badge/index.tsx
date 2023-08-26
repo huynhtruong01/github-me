@@ -1,5 +1,12 @@
+import { SectionContainer } from '@/components'
+import { Box } from '@mui/material'
+
 export interface IBadgeProps {}
 
 export function Badge() {
-  return <div>Badge</div>
+    return (
+        <SectionContainer>
+            <Box></Box>
+        </SectionContainer>
+    )
 }

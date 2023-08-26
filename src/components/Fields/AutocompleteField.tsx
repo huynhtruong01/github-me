@@ -6,6 +6,7 @@ export interface IAutocompleteFieldProps<T> {
     label: string
     value: T[]
     setValue: Dispatch<SetStateAction<T[]>>
+    options: T[]
     placeholder?: string
 }
 
@@ -13,6 +14,7 @@ export function AutocompleteField<T>({
     label,
     value,
     setValue,
+    options,
     placeholder = '',
 }: IAutocompleteFieldProps<T>) {
     return (
@@ -23,7 +25,7 @@ export function AutocompleteField<T>({
                 setValue(value as any)
             }}
             value={value}
-            options={[]}
+            options={options}
             renderTags={(value, getTagProps) =>
                 value.map((option, index) => (
                     <Chip label={option as ReactNode} {...getTagProps({ index })} />

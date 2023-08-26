@@ -12,13 +12,13 @@ export function WaketimeStats() {
     const [username, setUsername] = useState<string>('')
     const [layout, setLayout] = useState<ILayout>(Layout.DEFAULT)
     const [url, setUrl] = useState<string>(
-        `https://github-readme-stats.vercel.app/api/wakatime/?username=${
+        `https://github-readme-stats.vercel.app/api/wakatime?username=${
             username || 'huynhtruong01'
         }${layout === Layout.DEFAULT ? '' : `&layout=${layout}`}`
     )
 
     useEffect(() => {
-        const url = `https://github-readme-stats.vercel.app/api/wakatime/?username=${
+        const url = `https://github-readme-stats.vercel.app/api/wakatime?username=${
             username || 'huynhtruong01'
         }${layout === Layout.DEFAULT ? '' : `&layout=${layout}`}`
         setUrl(url)

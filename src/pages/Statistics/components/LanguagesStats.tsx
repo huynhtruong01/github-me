@@ -64,7 +64,7 @@ export function LanguagesStats() {
                 <Typography component="span">(Langs Stats)</Typography>
             </Typography>
             <Grid container spacing={4} alignItems={'center'}>
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                     <InputField
                         label={'Tên Repo Github của bạn'}
                         value={username}
@@ -95,6 +95,7 @@ export function LanguagesStats() {
                         label={'Ẩn ngôn ngữ (Hide languages)'}
                         value={hideLanguages}
                         setValue={setHideLanguages}
+                        options={[]}
                     />
                     <CheckBoxField
                         label={'Ẩn thanh tiến trình (Hide progress bar)'}
@@ -103,7 +104,7 @@ export function LanguagesStats() {
                     />
                     <AccordingCopyCode url={url} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                     <Box>
                         <Box
                             component="img"

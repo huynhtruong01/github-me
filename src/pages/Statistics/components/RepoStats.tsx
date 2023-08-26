@@ -50,7 +50,7 @@ export function RepoStats() {
                 <Typography component="span">(Repo Stats)</Typography>
             </Typography>
             <Grid container spacing={4} alignItems={'center'}>
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                     <InputField
                         label={'Tên Repo Github của bạn'}
                         value={username}
@@ -71,7 +71,7 @@ export function RepoStats() {
                     />
                     <AccordingCopyCode url={url} />
                 </Grid>
-                <Grid item md={6}>
+                <Grid item xs={12} md={6}>
                     <Box>
                         <Box component="img" src={url} />
                     </Box>

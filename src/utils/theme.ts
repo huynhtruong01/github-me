@@ -40,9 +40,11 @@ let theme = createTheme({
                         fontWeight: 600,
                         fontSize: '16px',
                         borderRadius: '6px',
+                        backgroundColor: '#3b49df',
 
                         '&:hover': {
                             boxShadow: 'none',
+                            backgroundColor: '#2f3ab2',
                         },
                     },
                 },
