@@ -1,3 +1,5 @@
+import { CodeCopyType } from '@/enums'
+import { ICodeCopyType } from '@/models'
 import { theme } from '@/utils'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {
@@ -11,15 +13,26 @@ import { useState } from 'react'
 
 export interface IAccordingCopyCodeProps {
     url: string
+    link?: string
+    type?: ICodeCopyType
 }
 
-export function AccordingCopyCode({ url }: IAccordingCopyCodeProps) {
+export function AccordingCopyCode({
+    url,
+    link,
+    type = CodeCopyType.IMAGE,
+}: IAccordingCopyCodeProps) {
     const [copied, setCopied] = useState<boolean>(false)
 
     const copyCode = async () => {
         try {
-            const imgElement = `<img src="${url}" alt='' />`
-            await navigator.clipboard.writeText(imgElement)
+            const element =
+                type === CodeCopyType.IMAGE
+                    ? `<img src="${url}" alt='' />`
+                    : `<a href='${link}' target="_blank">
+                        <img src="${url}" alt='' />
+                    </a>`
+            await navigator.clipboard.writeText(element)
             setCopied(true)
         } catch (error) {
             throw new Error(error as string)
@@ -62,7 +75,9 @@ export function AccordingCopyCode({ url }: IAccordingCopyCodeProps) {
                         maxWidth: '100%',
                     }}
                 >
-                    {`<img src="${url}" alt='' />`}
+                    {type === CodeCopyType.IMAGE
+                        ? `<img src="${url}" alt='' />`
+                        : `<a href='${link}' target="_blank"><img src="${url}" alt='' /></a>`}
                 </Typography>
                 <Button
                     variant="outlined"

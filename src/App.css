@@ -44,3 +44,34 @@ img {
 p {
     line-height: 1.5;
 }
+
+hr {
+    border-color: #ffffff4d;
+}
+
+textarea {
+    line-height: 1.5;
+}
+
+@keyframes lineLink {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 30%;
+    }
+}
+
+/* Monaco Editor */
+.scroll-decoration {
+    display: none;
+}
+
+.decorationsOverviewRuler {
+    width: 8px !important;
+}
+
+.monaco-editor .context-view {
+    display: none !important;
+}

@@ -1,20 +1,21 @@
+import { IOptionValue } from '@/models'
 import { theme } from '@/utils'
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { Dispatch, SetStateAction } from 'react'
 
-export type ISelectFieldProps<T> = {
+export type ISelectFieldProps<T, IOption> = {
     label: string
     value: T
     setValue: Dispatch<SetStateAction<T>>
-    options: T[]
+    options: IOption[]
 }
 
-export function SelectField<T>({
+export function SelectField<T, IOption>({
     label,
     value,
     setValue,
     options,
-}: ISelectFieldProps<T>) {
+}: ISelectFieldProps<T, IOption>) {
     return (
         <FormControl
             fullWidth
@@ -25,22 +26,21 @@ export function SelectField<T>({
             <InputLabel variant="standard">{label}</InputLabel>
             <Select
                 variant="standard"
-                defaultValue={value}
                 value={value}
                 sx={{
                     textTransform: 'capitalize',
                 }}
                 onChange={(e) => setValue(e.target.value as T)}
             >
-                {options.map((val) => (
+                {options.map((option) => (
                     <MenuItem
-                        key={val as any}
-                        value={val as any}
+                        key={(option as IOptionValue).value || (option as string)}
+                        value={(option as IOptionValue).value || (option as string)}
                         sx={{
                             textTransform: 'capitalize',
                         }}
                     >
-                        {val as any}
+                        {(option as IOptionValue).name || (option as string)}
                     </MenuItem>
                 ))}
             </Select>

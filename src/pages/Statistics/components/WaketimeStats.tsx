@@ -1,10 +1,9 @@
-import { AccordingCopyCode } from '@/components'
+import { AccordingCopyCode, ImageReview, SectionItemStatsAndBadge } from '@/components'
 import { InputField, SelectField } from '@/components/Fields'
 import { Layout } from '@/enums'
 import { ILayout } from '@/models'
-import { theme } from '@/utils'
-import { Box, Typography, Grid } from '@mui/material'
-import { useState, useEffect } from 'react'
+import { Grid, Box } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 export interface IWaketimeStatsProps {}
 
@@ -25,30 +24,10 @@ export function WaketimeStats() {
     }, [username, layout])
 
     return (
-        <Box
-            sx={{
-                padding: theme.spacing(4, 0),
-                margin: theme.spacing(2, 0),
-            }}
+        <SectionItemStatsAndBadge
+            title={'Số liệu thống kê thời gian Waka'}
+            subTitle={'Wakatime Stats'}
         >
-            <Typography
-                component="h2"
-                variant="h6"
-                sx={{
-                    marginBottom: 4,
-                }}
-            >
-                <Typography
-                    component="span"
-                    variant="h6"
-                    sx={{
-                        fontWeight: 700,
-                    }}
-                >
-                    Số liệu thống kê thời gian Waka
-                </Typography>{' '}
-                <Typography component="span">(Wakatime Stats)</Typography>
-            </Typography>
             <Grid container spacing={4}>
                 <Grid item xs={12} md={6}>
                     <InputField
@@ -57,7 +36,7 @@ export function WaketimeStats() {
                         setValue={setUsername}
                         placeholder="huynhtruong01"
                     />
-                    <SelectField<ILayout>
+                    <SelectField<ILayout, string>
                         label={'Layout'}
                         value={layout}
                         setValue={setLayout}
@@ -67,10 +46,10 @@ export function WaketimeStats() {
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <Box>
-                        <Box component="img" src={url} />
+                        <ImageReview url={url} />
                     </Box>
                 </Grid>
             </Grid>
-        </Box>
+        </SectionItemStatsAndBadge>
     )
 }

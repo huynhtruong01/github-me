@@ -1,6 +1,6 @@
 import '@/App.css'
-import { Footer, Header } from '@/components'
-import { Badge, HomePage, Statistics } from '@/pages'
+import { ContainerRouter, Footer, Header } from '@/components'
+import { Badge, CreateReadme, HomePage, Statistics } from '@/pages'
 import { Box } from '@mui/material'
 import { Route, Routes } from 'react-router-dom'
 import { HEIGHT_HEADER } from './consts'
@@ -16,11 +16,14 @@ function App() {
                     paddingTop: HEIGHT_HEADER,
                 }}
             >
-                <Routes>
-                    <Route path="" element={<HomePage />} />
-                    <Route path="statistics" element={<Statistics />} />
-                    <Route path="badges" element={<Badge />} />
-                </Routes>
+                <ContainerRouter>
+                    <Routes>
+                        <Route path="" element={<HomePage />} />
+                        <Route path="statistics" element={<Statistics />} />
+                        <Route path="badges" element={<Badge />} />
+                        <Route path="create-readme" element={<CreateReadme />} />
+                    </Routes>
+                </ContainerRouter>
             </Box>
             <Footer />
         </>

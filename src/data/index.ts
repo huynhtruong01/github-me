@@ -1,3 +1,5 @@
 export * from '@/data/header'
 export * from '@/data/home'
 export * from '@/data/statistics'
+export * from '@/data/badge'
+export * from '@/data/monaco-editor'

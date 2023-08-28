@@ -1,9 +1,8 @@
-import { AccordingCopyCode } from '@/components'
+import { AccordingCopyCode, ImageReview, SectionItemStatsAndBadge } from '@/components'
 import { InputField, SelectField } from '@/components/Fields'
 import { themeData } from '@/data'
-import { theme } from '@/utils'
-import { Box, Typography, Grid } from '@mui/material'
-import { useState, useEffect } from 'react'
+import { Grid } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 export interface IRepoStatsProps {}
 
@@ -25,30 +24,10 @@ export function RepoStats() {
     }, [username, themeDt, repo])
 
     return (
-        <Box
-            sx={{
-                padding: theme.spacing(4, 0),
-                margin: theme.spacing(2, 0),
-            }}
+        <SectionItemStatsAndBadge
+            title={'Số liệu thống kê kho lữu trữ'}
+            subTitle={'Repo Stats'}
         >
-            <Typography
-                component="h2"
-                variant="h6"
-                sx={{
-                    marginBottom: 4,
-                }}
-            >
-                <Typography
-                    component="span"
-                    variant="h6"
-                    sx={{
-                        fontWeight: 700,
-                    }}
-                >
-                    Số liệu thống kê kho lữu trữ
-                </Typography>{' '}
-                <Typography component="span">(Repo Stats)</Typography>
-            </Typography>
             <Grid container spacing={4} alignItems={'center'}>
                 <Grid item xs={12} md={6}>
                     <InputField
@@ -63,7 +42,7 @@ export function RepoStats() {
                         setValue={setRepo}
                         placeholder="learn-reactjs"
                     />
-                    <SelectField<string>
+                    <SelectField<string, string>
                         label={'Chủ đề'}
                         options={themeData}
                         value={themeDt}
@@ -72,11 +51,9 @@ export function RepoStats() {
                     <AccordingCopyCode url={url} />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <Box>
-                        <Box component="img" src={url} />
-                    </Box>
+                    <ImageReview url={url} />
                 </Grid>
             </Grid>
-        </Box>
+        </SectionItemStatsAndBadge>
     )
 }

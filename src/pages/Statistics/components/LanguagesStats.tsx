@@ -1,4 +1,4 @@
-import { AccordingCopyCode } from '@/components'
+import { AccordingCopyCode, ImageReview, SectionItemStatsAndBadge } from '@/components'
 import {
     AutocompleteField,
     CheckBoxField,
@@ -8,8 +8,7 @@ import {
 import { themeData } from '@/data'
 import { Layout } from '@/enums'
 import { ILayout } from '@/models'
-import { theme } from '@/utils'
-import { Box, Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 export interface ILanguagesStatsProps {}
@@ -22,47 +21,27 @@ export function LanguagesStats() {
     const [layout, setLayout] = useState<ILayout>(Layout.DEFAULT)
     const [count, setCount] = useState<string>('5')
     const [url, setUrl] = useState<string>(
-        `https://github-readme-stats.vercel.app/api/top-langs/?username=huynhtruong01&theme=${
-            themeData[0]
-        }&langs_count=${count}${
+        `https://github-readme-stats.vercel.app/api/top-langs/?username=${
+            username || 'huynhtruong01'
+        }&theme=${themeData[0]}&langs_count=${count}${
             layout === Layout.DEFAULT ? '' : `&layout=${layout}`
         }&hide_progress=${hideProgressBar}&hide=${hideLanguages.join(',')}`
     )
 
     useEffect(() => {
-        const newUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=huynhtruong01&theme=${
-            themeData[0]
-        }&langs_count=${count}${
+        const newUrl = `https://github-readme-stats.vercel.app/api/top-langs/?username=${
+            username || 'huynhtruong01'
+        }&theme=${themeDt}&langs_count=${count}${
             layout === Layout.DEFAULT ? '' : `&layout=${layout}`
         }&hide_progress=${hideProgressBar}&hide=${hideLanguages.join(',')}`
         setUrl(newUrl)
     }, [username, themeDt, layout, count, hideProgressBar, hideLanguages])
 
     return (
-        <Box
-            sx={{
-                padding: theme.spacing(4, 0),
-                margin: theme.spacing(2, 0),
-            }}
+        <SectionItemStatsAndBadge
+            title={'Số liệu thống kê ngôn ngữ'}
+            subTitle={'Langs Stats'}
         >
-            <Typography
-                component="h2"
-                variant="h6"
-                sx={{
-                    marginBottom: 4,
-                }}
-            >
-                <Typography
-                    component="span"
-                    variant="h6"
-                    sx={{
-                        fontWeight: 700,
-                    }}
-                >
-                    Số liệu thống kê ngôn ngữ
-                </Typography>{' '}
-                <Typography component="span">(Langs Stats)</Typography>
-            </Typography>
             <Grid container spacing={4} alignItems={'center'}>
                 <Grid item xs={12} md={6}>
                     <InputField
@@ -71,13 +50,13 @@ export function LanguagesStats() {
                         setValue={setUsername}
                         placeholder="huynhtruong01"
                     />
-                    <SelectField<string>
+                    <SelectField<string, string>
                         label={'Chủ đề (Theme)'}
                         value={themeDt}
                         setValue={setThemeDt}
                         options={themeData}
                     />
-                    <SelectField<string>
+                    <SelectField<string, string>
                         label={'Số lượng ngôn ngữ'}
                         value={count}
                         setValue={setCount}
@@ -85,7 +64,7 @@ export function LanguagesStats() {
                             (idx + 1).toString()
                         )}
                     />
-                    <SelectField<ILayout>
+                    <SelectField<ILayout, string>
                         label={'Layout'}
                         value={layout}
                         setValue={setLayout}
@@ -105,20 +84,9 @@ export function LanguagesStats() {
                     <AccordingCopyCode url={url} />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <Box>
-                        <Box
-                            component="img"
-                            src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${
-                                username || 'huynhtruong01'
-                            }${
-                                layout === Layout.DEFAULT ? '' : `&layout=${layout}`
-                            }&langs_count=${count}&theme=${themeDt}&hide_progress=${hideProgressBar}&hide=${hideLanguages.join(
-                                ','
-                            )}`}
-                        />
-                    </Box>
+                    <ImageReview url={url} />
                 </Grid>
             </Grid>
-        </Box>
+        </SectionItemStatsAndBadge>
     )
 }

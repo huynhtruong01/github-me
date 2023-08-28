@@ -14,8 +14,11 @@ export function Statistics() {
         <SectionContainer>
             <Box>
                 <GithubStats />
+                <hr />
                 <LanguagesStats />
+                <hr />
                 <RepoStats />
+                <hr />
                 <WaketimeStats />
             </Box>
         </SectionContainer>

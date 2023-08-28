@@ -1,4 +1,4 @@
-import { AccordingCopyCode } from '@/components'
+import { AccordingCopyCode, ImageReview, SectionItemStatsAndBadge } from '@/components'
 import {
     AutocompleteField,
     CheckBoxField,
@@ -7,10 +7,9 @@ import {
 } from '@/components/Fields'
 import { githubMoreKeys, themeData } from '@/data'
 import { NumberFormat, RankIcon } from '@/enums'
-import { theme } from '@/utils'
-import { Box, Grid, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
 import TitleIcon from '@mui/icons-material/Title'
+import { Grid } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 export interface IGithubStatsProps {}
 
@@ -44,29 +43,10 @@ export function GithubStats() {
     }, [username, themeDt, showIcon, rankIcon, title, numFormat, keyMore])
 
     return (
-        <Box
-            sx={{
-                padding: theme.spacing(4, 0),
-            }}
+        <SectionItemStatsAndBadge
+            title={'Số liệu thống kê Github'}
+            subTitle={'Github Stats'}
         >
-            <Typography
-                component="h2"
-                variant="h6"
-                sx={{
-                    marginBottom: 4,
-                }}
-            >
-                <Typography
-                    component="span"
-                    variant="h6"
-                    sx={{
-                        fontWeight: 700,
-                    }}
-                >
-                    Số liệu thống kê Github
-                </Typography>{' '}
-                <Typography component="span">(Github Stats)</Typography>
-            </Typography>
             <Grid container spacing={4} alignItems={'center'}>
                 <Grid item xs={12} md={6}>
                     <InputField
@@ -82,19 +62,19 @@ export function GithubStats() {
                         icon={TitleIcon}
                         placeholder={'Github Stats của huynhtruong01'}
                     />
-                    <SelectField<string>
+                    <SelectField<string, string>
                         label={'Chủ đề'}
                         options={themeData}
                         value={themeDt}
                         setValue={setThemeDt}
                     />
-                    <SelectField<string>
+                    <SelectField<string, string>
                         label={'Icon xếp hạng'}
                         options={Object.values(RankIcon)}
                         value={rankIcon}
                         setValue={setRankIcon}
                     />
-                    <SelectField<string>
+                    <SelectField<string, string>
                         label={'Format số view'}
                         options={Object.values(NumberFormat)}
                         value={numFormat}
@@ -114,11 +94,9 @@ export function GithubStats() {
                     <AccordingCopyCode url={url} />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <Box>
-                        <Box component="img" src={url} />
-                    </Box>
+                    <ImageReview url={url} />
                 </Grid>
             </Grid>
-        </Box>
+        </SectionItemStatsAndBadge>
     )
 }
