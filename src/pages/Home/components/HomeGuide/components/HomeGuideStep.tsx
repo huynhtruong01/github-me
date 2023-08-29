@@ -38,7 +38,10 @@ export function HomeGuideStep({ step }: IHomeGuideStepProps) {
                 </Typography>
                 <Typography
                     sx={{
-                        height: '96px',
+                        height: {
+                            md: '96px',
+                            xs: 'auto',
+                        },
                     }}
                 >
                     {step.content}

@@ -1,7 +1,7 @@
 import { SectionContainer } from '@/components'
 import { theme } from '@/utils'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 export interface IHomeHeaderProps {}
@@ -12,20 +12,32 @@ export function HomeHeader() {
     return (
         <SectionContainer
             sx={{
-                margin: theme.spacing(0, 0, 14),
+                margin: {
+                    md: theme.spacing(0, 0, 14),
+                    xs: theme.spacing(0, 0, 6),
+                },
             }}
         >
-            <Box
+            <Grid
+                container
+                spacing={4}
                 sx={{
-                    display: 'flex',
+                    padding: {
+                        md: theme.spacing(14, 0, 8),
+                        xs: theme.spacing(4, 0),
+                    },
                     alignItems: 'center',
-                    gap: 4,
-                    paddingTop: 10,
                 }}
             >
-                <Box
+                <Grid
+                    item
+                    xs={12}
+                    md={6}
                     sx={{
-                        flex: 1,
+                        textAlign: {
+                            md: 'left',
+                            xs: 'center',
+                        },
                     }}
                 >
                     <Typography
@@ -41,7 +53,20 @@ export function HomeHeader() {
                     </Typography>
                     <Typography
                         sx={{
-                            marginBottom: 3,
+                            width: {
+                                md: '100%',
+                                xs: '85%',
+                            },
+                            textAlign: {
+                                md: 'left',
+                                xs: 'center',
+                            },
+                            margin: {
+                                xs: 'auto',
+                            },
+                            marginBottom: {
+                                xs: 3,
+                            },
                         }}
                     >
                         Đây là trang web bạn cần để tạo một Readme đẹp mắt trên Github và
@@ -61,15 +86,11 @@ export function HomeHeader() {
                     >
                         Thống kê Github ngay
                     </Button>
-                </Box>
-                <Box
-                    sx={{
-                        flex: 1,
-                    }}
-                >
+                </Grid>
+                <Grid item xs={12} md={6}>
                     <Box component="img" src={'/images/home_page.png'} />
-                </Box>
-            </Box>
+                </Grid>
+            </Grid>
         </SectionContainer>
     )
 }

@@ -14,7 +14,10 @@ export function HomeBadges() {
         >
             <Box
                 sx={{
-                    margin: theme.spacing(2, 0, 6),
+                    margin: {
+                        md: theme.spacing(2, 0, 6),
+                        xs: theme.spacing(2, 0, 3),
+                    },
                 }}
             >
                 <Typography
@@ -38,7 +41,10 @@ export function HomeBadges() {
             </Box>
             <Box
                 sx={{
-                    width: '70%',
+                    width: {
+                        md: '70%',
+                        xs: '100%',
+                    },
                     maxWidth: '100%',
                     margin: 'auto',
                 }}

@@ -11,8 +11,14 @@ export function ResourceItem({ resource }: IResourceItemProps) {
         <Box>
             <Box
                 sx={{
-                    width: '200px',
-                    height: '200px',
+                    width: {
+                        md: 200,
+                        xs: '100%',
+                    },
+                    height: {
+                        md: 200,
+                        xs: '100%',
+                    },
                     margin: 'auto',
                     marginBottom: 2,
                 }}

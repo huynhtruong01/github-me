@@ -1,7 +1,7 @@
 import { monacoOptions } from '@/data'
 import { theme } from '@/utils'
 import Editor from '@monaco-editor/react'
-import { Box, Button, Container, Grid } from '@mui/material'
+import { Box, Button, Container, Grid, Typography } from '@mui/material'
 import 'github-markdown-css/github-markdown-light.css'
 import 'katex/dist/katex.min.css'
 import { useState } from 'react'
@@ -45,101 +45,144 @@ export function CreateReadme() {
                 },
             }}
         >
-            <Container
-                sx={{
-                    marginBottom: 3,
-                }}
-            >
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <Button
-                        variant="contained"
-                        startIcon={<FileDownloadIcon />}
-                        sx={{
-                            padding: theme.spacing(1.2, 2),
-                            fontSize: theme.typography.body2,
-                            fontWeight: 700,
-                        }}
-                        onClick={handleDownloadFile}
-                    >
-                        Tải code ở đây
-                    </Button>
-                </Box>
-            </Container>
+            {/* desktop */}
             <Box
                 sx={{
-                    padding: {
-                        md: theme.spacing(0, 8),
-                        xs: theme.spacing(0, 2),
+                    display: {
+                        lg: 'block',
+                        xs: 'none',
                     },
                 }}
             >
-                <Grid container spacing={8}>
-                    <Grid item xs={12} md={6}>
-                        <Editor
-                            height="600px"
-                            defaultLanguage="markdown"
-                            defaultValue={content}
-                            onChange={handleContentChange}
-                            options={monacoOptions}
-                        />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Box
-                            className="markdown-body"
+                <Container
+                    sx={{
+                        marginBottom: 3,
+                    }}
+                >
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Button
+                            variant="contained"
+                            startIcon={<FileDownloadIcon />}
                             sx={{
-                                height: 600,
-                                maxHeight: 600,
-                                overflowY: 'auto',
-                                overflowX: 'hidden',
-                                padding: theme.spacing(0, 4),
+                                padding: theme.spacing(1.2, 2),
+                                fontSize: theme.typography.body2,
+                                fontWeight: 700,
                             }}
+                            onClick={handleDownloadFile}
                         >
-                            <ReactMarkdown
-                                remarkPlugins={[remarkGfm, remarkMath]}
-                                rehypePlugins={[rehypeRaw as any, rehypeKatex]}
-                                children={content}
-                                components={{
-                                    code({
-                                        node,
-                                        inline,
-                                        className,
-                                        children,
-                                        ...props
-                                    }) {
-                                        const match = /language-(\w+)/.exec(
-                                            className || ''
-                                        )
-
-                                        return !inline && match ? (
-                                            <SyntaxHighlighter
-                                                style={materialLight as any}
-                                                PreTag="div"
-                                                language={match[1]}
-                                                children={String(children).replace(
-                                                    /\n$/,
-                                                    ''
-                                                )}
-                                                {...props}
-                                            />
-                                        ) : (
-                                            <code
-                                                className={className ? className : ''}
-                                                {...props}
-                                            >
-                                                {children}
-                                            </code>
-                                        )
-                                    },
-                                }}
+                            Tải code ở đây
+                        </Button>
+                    </Box>
+                </Container>
+                <Box
+                    sx={{
+                        padding: {
+                            md: theme.spacing(0, 8),
+                            xs: theme.spacing(0, 2),
+                        },
+                    }}
+                >
+                    <Grid container spacing={8}>
+                        <Grid item xs={12} md={6}>
+                            <Editor
+                                height="600px"
+                                defaultLanguage="markdown"
+                                defaultValue={content}
+                                onChange={handleContentChange}
+                                options={monacoOptions}
                             />
-                        </Box>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Box
+                                className="markdown-body"
+                                sx={{
+                                    height: 600,
+                                    maxHeight: 600,
+                                    overflowY: 'auto',
+                                    overflowX: 'hidden',
+                                    padding: theme.spacing(0, 4),
+                                }}
+                            >
+                                <ReactMarkdown
+                                    remarkPlugins={[remarkGfm, remarkMath]}
+                                    rehypePlugins={[rehypeRaw as any, rehypeKatex]}
+                                    children={content}
+                                    components={{
+                                        code({
+                                            node,
+                                            inline,
+                                            className,
+                                            children,
+                                            ...props
+                                        }) {
+                                            const match = /language-(\w+)/.exec(
+                                                className || ''
+                                            )
+
+                                            return !inline && match ? (
+                                                <SyntaxHighlighter
+                                                    style={materialLight as any}
+                                                    PreTag="div"
+                                                    language={match[1]}
+                                                    children={String(children).replace(
+                                                        /\n$/,
+                                                        ''
+                                                    )}
+                                                    {...props}
+                                                />
+                                            ) : (
+                                                <code
+                                                    className={className ? className : ''}
+                                                    {...props}
+                                                >
+                                                    {children}
+                                                </code>
+                                            )
+                                        },
+                                    }}
+                                />
+                            </Box>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </Box>
+            </Box>
+            {/* mobile */}
+            <Box
+                sx={{
+                    display: {
+                        lg: 'none',
+                        xs: 'block',
+                    },
+                    height: '100%',
+                }}
+            >
+                <Container>
+                    <Box
+                        sx={{
+                            width: {
+                                md: '70%',
+                            },
+                            margin: 'auto',
+                        }}
+                    >
+                        <Box component="img" src="/images/desktop.png" />
+                    </Box>
+                    <Typography
+                        textAlign={'center'}
+                        marginTop={2}
+                        sx={{
+                            fontWeight: 700,
+                        }}
+                    >
+                        Tạo file README chỉ dành cho desktop <br />
+                        Hãy mở 💻 của bạn để tạo file README ngay nào 😁😁
+                    </Typography>
+                </Container>
             </Box>
         </Box>
     )

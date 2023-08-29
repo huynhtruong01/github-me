@@ -2,9 +2,22 @@ import { HEIGHT_HEADER } from '@/consts'
 import { navLinks } from '@/data'
 import { theme } from '@/utils'
 import AddIcon from '@mui/icons-material/Add'
-import { Box, Button, Container, Typography } from '@mui/material'
+import {
+    Box,
+    Button,
+    Container,
+    IconButton,
+    Typography,
+    Drawer,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+} from '@mui/material'
 import { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import DehazeIcon from '@mui/icons-material/Dehaze'
 
 export interface IHeaderProps {}
 
@@ -12,6 +25,7 @@ export function Header() {
     const navigate = useNavigate()
     const location = useLocation()
     const [pathname, setPathname] = useState<string>(location.pathname)
+    const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
     useEffect(() => {
         setPathname(location.pathname)
@@ -48,10 +62,14 @@ export function Header() {
                         <Link to={''}>GithubMe</Link>
                     </Box>
                     <Box component="nav">
+                        {/* desktop */}
                         <Box
                             component="ul"
                             sx={{
-                                display: 'flex',
+                                display: {
+                                    md: 'flex',
+                                    xs: 'none',
+                                },
                                 alignItems: 'center',
                             }}
                         >
@@ -108,8 +126,111 @@ export function Header() {
                                 </Box>
                             ))}
                         </Box>
+                        {/* mobile */}
+                        <Box
+                            sx={{
+                                display: {
+                                    md: 'none',
+                                    xs: 'block',
+                                },
+                            }}
+                        >
+                            <IconButton onClick={() => setOpenDrawer(true)}>
+                                <DehazeIcon />
+                            </IconButton>
+                            <Drawer
+                                anchor={'right'}
+                                open={openDrawer}
+                                onClose={() => setOpenDrawer(false)}
+                            >
+                                <Box
+                                    sx={{
+                                        paddingTop: 2,
+                                        width: 250,
+                                        height: '100dvh',
+                                        backgroundColor: '#ffffff',
+                                    }}
+                                >
+                                    <List>
+                                        {navLinks.map((nav) => {
+                                            const Icon = nav.icon
+                                            return (
+                                                <ListItem
+                                                    key={nav.link}
+                                                    disablePadding
+                                                    sx={{
+                                                        display: 'block',
+                                                        a: {
+                                                            display: 'block',
+                                                        },
+                                                        backgroundColor:
+                                                            nav.link === pathname
+                                                                ? theme.palette.primary
+                                                                      .main
+                                                                : 'transparent',
+                                                        color:
+                                                            nav.link === pathname
+                                                                ? theme.palette.primary
+                                                                      .contrastText
+                                                                : 'inherit',
+                                                    }}
+                                                >
+                                                    <Link
+                                                        to={nav.link}
+                                                        onClick={() =>
+                                                            setOpenDrawer(false)
+                                                        }
+                                                    >
+                                                        <ListItemButton>
+                                                            <ListItemIcon
+                                                                sx={{
+                                                                    color:
+                                                                        nav.link ===
+                                                                        pathname
+                                                                            ? theme
+                                                                                  .palette
+                                                                                  .primary
+                                                                                  .contrastText
+                                                                            : theme
+                                                                                  .palette
+                                                                                  .primary
+                                                                                  .main,
+                                                                }}
+                                                            >
+                                                                <Icon />
+                                                            </ListItemIcon>
+                                                            <ListItemText
+                                                                primary={nav.name}
+                                                                sx={{
+                                                                    color:
+                                                                        nav.link ===
+                                                                        pathname
+                                                                            ? theme
+                                                                                  .palette
+                                                                                  .primary
+                                                                                  .contrastText
+                                                                            : 'inherit',
+                                                                    fontWeight: 600,
+                                                                }}
+                                                            />
+                                                        </ListItemButton>
+                                                    </Link>
+                                                </ListItem>
+                                            )
+                                        })}
+                                    </List>
+                                </Box>
+                            </Drawer>
+                        </Box>
                     </Box>
-                    <Box>
+                    <Box
+                        sx={{
+                            display: {
+                                md: 'block',
+                                xs: 'none',
+                            },
+                        }}
+                    >
                         <Button
                             startIcon={<AddIcon />}
                             variant="contained"

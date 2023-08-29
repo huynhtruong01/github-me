@@ -40,7 +40,7 @@ export function HomeResource() {
             </Box>
             <Grid container spacing={2}>
                 {resources.map((resource) => (
-                    <Grid key={resource.name} item md={4}>
+                    <Grid key={resource.name} item xs={12} md={4}>
                         <ResourceItem resource={resource} />
                     </Grid>
                 ))}
